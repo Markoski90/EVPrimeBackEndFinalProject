@@ -6,7 +6,7 @@ import io.restassured.response.Response;
 import models.request.SignUpLoginRequest;
 import models.response.LoginResponse;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import util.DateBuilder;
 
@@ -14,13 +14,13 @@ import static objectBuilder.SignUpBuilder.createBodyForSIgnUp;
 import static org.junit.Assert.*;
 
 public class LoginTests {
-    SignUpLoginRequest signUpLoginRequest;
-    DateBuilder dateBuilder = new DateBuilder();
+   static SignUpLoginRequest signUpLoginRequest;
+   static DateBuilder dateBuilder = new DateBuilder();
 
-    @Before
-    public void userSetUp(){
+    @BeforeClass
+    public static void userSetUp(){
         signUpLoginRequest = new SignUpLoginDataFactory(createBodyForSIgnUp())
-                .setEmail(RandomStringUtils.randomAlphanumeric(10)+ "@mail.com")
+                .setEmail(RandomStringUtils.randomAlphanumeric(10)+ dateBuilder.currentTimeMinusOneHour() + "@mail.com")
                 .setPassword(RandomStringUtils.randomAlphanumeric(10))
                 .createRequest();
          new EVPrimeClient().signUp(signUpLoginRequest);

@@ -7,16 +7,19 @@ import models.request.SignUpLoginRequest;
 import models.response.SignUpResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
+import util.DateBuilder;
+
 import static objectBuilder.SignUpBuilder.createBodyForSIgnUp;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class SignUpTests {
 
+    DateBuilder dateBuilder = new DateBuilder();
     @Test
     public void successfulSignUpTest() {
         SignUpLoginRequest signUpRequest = new SignUpLoginDataFactory(createBodyForSIgnUp())
-                .setEmail(RandomStringUtils.randomAlphanumeric(10) + "@mail.com")
+                .setEmail(RandomStringUtils.randomAlphanumeric(10) + dateBuilder.currentTimeMinusOneHour() + "@mail.com")
                 .setPassword(RandomStringUtils.randomAlphanumeric(10))
                 .createRequest();
 

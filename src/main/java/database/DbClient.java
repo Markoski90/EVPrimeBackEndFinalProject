@@ -37,9 +37,7 @@ public class DbClient {
         String sql = "DELETE from events where id = '" + id +"'";
         PreparedStatement pstmt = conn.prepareStatement(sql);
 
-        int rowsAffected = pstmt.executeUpdate();
-
-        return rowsAffected > 0;
+        return pstmt.executeUpdate()==1;
     }
 
 }
